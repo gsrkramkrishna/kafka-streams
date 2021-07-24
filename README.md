@@ -77,7 +77,7 @@ The same mechanism is used, for example, to replicate databases via change data 
 
 <b>GlobalKTable</b><br>
 
-Like a KTable, a GlobalKTable is an abstraction of a changelog stream, where each data record represents an update.<br>
+Like a <b>KTable</b>, a <b>GlobalKTable</b> is an abstraction of a <b>changelog stream</b>, where each data record represents an update.<br>
 
 A GlobalKTable differs from a KTable in the data that they are being populated with, i.e. which data from the underlying Kafka topic is being read into the respective table. Slightly simplified, imagine you have an input topic with 5 partitions. In your application, you want to read this topic into a table. Also, you want to run your application across 5 application instances for maximum parallelism.<br>
 
@@ -86,12 +86,12 @@ If you read the input topic into a GlobalKTable, then the local GlobalKTable ins
 
 <b>Benefits of global tables:</b><br>
 
-&#9679; More convenient and/or efficient joins: Notably, global tables allow you to perform star joins, they support “foreign-key” lookups (i.e., you can lookup data in the table not just by record key, but also by data in the record values), and they are more efficient when chaining multiple joins. Also, when joining against a global table, the input data does not need to be co-partitioned.<br>
-<p>&#9679;</p>Can be used to “broadcast” information to all the running instances of your application.<br>
+&#9679; &emsp; More convenient and/or efficient joins: Notably, global tables allow you to perform star joins, they support “foreign-key” lookups (i.e., you can lookup data in the table not just by record key, but also by data in the record values), and they are more efficient when chaining multiple joins. Also, when joining against a global table, the input data does not need to be co-partitioned.<br>
+&#9679; &emsp;</p>Can be used to “broadcast” information to all the running instances of your application.<br>
 
 <b>Downsides of global tables:</b><br>
 
-<p>&#9679;</p> Increased local storage consumption compared to the (partitioned) KTable because the entire topic is tracked.
-<p>&#9679;</p> Increased network and Kafka broker load compared to the (partitioned) KTable because the entire topic is read.
+&#9679; &emsp; Increased local storage consumption compared to the (partitioned) KTable because the entire topic is tracked.<br>
+&#9679; &emsp; Increased network and Kafka broker load compared to the (partitioned) KTable because the entire topic is read.
 
 
