@@ -6,7 +6,7 @@ There are two main abstractions in the Streams API: A KStream is a stream of key
 
 A nice example that juxtaposes KStream and KTable is counting visits to a website by unique IP addresses. Let’s assume we have a Kafka topic containing messages of the following type: (key=IP, value=timestamp). A KStream contains all visits by all IPs, even if the IP is recurring. A count on such a KStream sums up all visits to a site including multiple visits from the same IP. A KTable, on the other hand, only contains the latest message and a count on the KTable represents the number of distinct IP addresses that visited the site.
 
-Joins
+<b>Joins</b>
 Taking a leaf out of SQLs book, Kafka Streams supports three kinds of joins:
 
 Inner Joins: Emits an output when both input sources have records with the same key.
