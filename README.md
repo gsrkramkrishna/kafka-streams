@@ -72,7 +72,26 @@ Because of the stream-table duality, the same stream can be used to reconstruct 
 
 <img src="https://docs.confluent.io/platform/current/_images/streams-table-duality-03.jpg" width="460" height="345"><br><br>
 
-The same mechanism is used, for example, to replicate databases via change data capture (CDC) and, within Kafka Streams, to replicate its so-called state stores across machines for fault tolerance. The stream-table duality is such an important concept for stream processing applications in practice that Kafka Streams models it explicitly via the KStream and KTable abstractions, which we describe in the next sections.
+The same mechanism is used, for example, to replicate databases via change data capture (CDC) and, within Kafka Streams, to replicate its so-called state stores across machines for fault tolerance. The stream-table duality is such an important concept for stream processing applications in practice that Kafka Streams models it explicitly via the KStream and KTable abstractions, which we describe in the next sections.<br>
 
+
+<b>GlobalKTable</b><br>
+
+Like a KTable, a GlobalKTable is an abstraction of a changelog stream, where each data record represents an update.<br>
+
+A GlobalKTable differs from a KTable in the data that they are being populated with, i.e. which data from the underlying Kafka topic is being read into the respective table. Slightly simplified, imagine you have an input topic with 5 partitions. In your application, you want to read this topic into a table. Also, you want to run your application across 5 application instances for maximum parallelism.<br>
+
+If you read the input topic into a KTable, then the “local” KTable instance of each application instance will be populated with data from only 1 partition of the topic’s 5 partitions.<br>
+If you read the input topic into a GlobalKTable, then the local GlobalKTable instance of each application instance will be populated with data from all partitions of the topic.<br>
+
+<b>Benefits of global tables:</b><br>
+
+<p>&#9679;</p>More convenient and/or efficient joins: Notably, global tables allow you to perform star joins, they support “foreign-key” lookups (i.e., you can lookup data in the table not just by record key, but also by data in the record values), and they are more efficient when chaining multiple joins. Also, when joining against a global table, the input data does not need to be co-partitioned.<br>
+<p>&#9679;</p>Can be used to “broadcast” information to all the running instances of your application.<br>
+
+<b>Downsides of global tables:</b><br>
+
+<p>&#9679;</p> Increased local storage consumption compared to the (partitioned) KTable because the entire topic is tracked.
+<p>&#9679;</p> Increased network and Kafka broker load compared to the (partitioned) KTable because the entire topic is read.
 
 
