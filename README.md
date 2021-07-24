@@ -7,7 +7,9 @@ There are two main abstractions in the Streams API: A KStream is a stream of key
 A nice example that juxtaposes KStream and KTable is counting visits to a website by unique IP addresses. Let’s assume we have a Kafka topic containing messages of the following type: (key=IP, value=timestamp). A KStream contains all visits by all IPs, even if the IP is recurring. A count on such a KStream sums up all visits to a site including multiple visits from the same IP. A KTable, on the other hand, only contains the latest message and a count on the KTable represents the number of distinct IP addresses that visited the site.
 
 <b>Joins:</b><br>
-Taking a leaf out of SQLs book, Kafka Streams supports three kinds of joins:
+Taking a leaf out of SQLs book, Kafka Streams supports three kinds of joins:<br>
+
+<img src="https://cdn.confluent.io/wp-content/uploads/inner-left-outer.jpg" width="460" height="345"> <br><br>
 
 <b>Inner Joins:</b><br> Emits an output when both input sources have records with the same key.
 
@@ -15,15 +17,45 @@ Taking a leaf out of SQLs book, Kafka Streams supports three kinds of joins:
 
 <b>Outer Joins:</b><br> Emits an output for each record in either input source. If only one source contains a key, the other is null.
 
-Another important aspect to consider are the input types. The following table shows which operations are permitted between KStreams and KTables:
+Another important aspect to consider are the input types. The following table shows which operations are permitted between KStreams and KTables:<br>
 
-<b>Inner Joins:</b><br> Emits an output when both input sources have records with the same key.
-
-<b>Left Joins:</b><br> Emits an output for each record in the left or primary input source. If the other source does not have a value for a given key, it is set to null.
-
-<b>Outer Joins:</b><br> Emits an output for each record in either input source. If only one source contains a key, the other is null.
-
-==========================================================================================
+<tbody>
+<tr>
+<td style="width: 115px;"><b>Primary Type &nbsp; &nbsp;&nbsp;</b></td>
+<td style="width: 139px;"><b>Secondary Type&nbsp;</b></td>
+<td style="width: 89px;"><b>Inner Join</b></td>
+<td style="width: 78px;"><b>Left Join</b></td>
+<td style="width: 96px;"><b>Outer Join</b></td>
+</tr>
+<tr>
+<td style="width: 115px;"><span style="font-weight: 400;">KStream</span></td>
+<td style="width: 139px;"><span style="font-weight: 400;">KStream</span></td>
+<td style="width: 89px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 78px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 96px;"><span style="font-weight: 400;">Supported</span></td>
+</tr>
+<tr>
+<td style="width: 115px;"><span style="font-weight: 400;">KTable</span></td>
+<td style="width: 139px;"><span style="font-weight: 400;">KTable</span></td>
+<td style="width: 89px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 78px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 96px;"><span style="font-weight: 400;">Supported</span></td>
+</tr>
+<tr>
+<td style="width: 115px;"><span style="font-weight: 400;">KStream</span></td>
+<td style="width: 139px;"><span style="font-weight: 400;">KTable</span></td>
+<td style="width: 89px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 78px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 96px;"><span style="font-weight: 400;">N/A</span></td>
+</tr>
+<tr>
+<td style="width: 115px;"><span style="font-weight: 400;">KStream</span></td>
+<td style="width: 139px;"><span style="font-weight: 400;">Global KTable</span></td>
+<td style="width: 89px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 78px;"><span style="font-weight: 400;">Supported</span></td>
+<td style="width: 96px;"><span style="font-weight: 400;">N/A</span></td>
+</tr>
+</tbody>
 
 The <b>stream-table duality</b> describes the close relationship between streams and tables.<br>
 
