@@ -25,14 +25,22 @@ Another important aspect to consider are the input types. The following table sh
 
 ==========================================================================================
 
-The <b>stream-table duality</b> describes the close relationship between streams and tables.
+The <b>stream-table duality</b> describes the close relationship between streams and tables.<br>
 
-Stream as Table: A stream can be considered a changelog of a table, where each data record in the stream captures a state change of the table. A stream is thus a table in disguise, and it can be easily turned into a “real” table by replaying the changelog from beginning to end to reconstruct the table. Similarly, aggregating data records in a stream will return a table. For example, we could compute the total number of pageviews by user from an input stream of pageview events, and the result would be a table, with the table key being the user and the value being the corresponding pageview count.
-Table as Stream: A table can be considered a snapshot, at a point in time, of the latest value for each key in a stream (a stream’s data records are key-value pairs). A table is thus a stream in disguise, and it can be easily turned into a “real” stream by iterating over each key-value entry in the table.<br>
+<b>Stream as Table:</b><br> A stream can be considered a changelog of a table, where each data record in the stream captures a state change of the table. A stream is thus a table in disguise, and it can be easily turned into a “real” table by replaying the changelog from beginning to end to reconstruct the table. Similarly, aggregating data records in a stream will return a table. For example, we could compute the total number of pageviews by user from an input stream of pageview events, and the result would be a table, with the table key being the user and the value being the corresponding pageview count.<br>
 
-Let’s illustrate this with an example. Imagine a table that tracks the total number of pageviews by user (first column of diagram below). Over time, whenever a new pageview event is processed, the state of the table is updated accordingly. Here, the state changes between different points in time – and different revisions of the table – can be represented as a changelog stream (second column).
+<b>Table as Stream:</b><br> A table can be considered a snapshot, at a point in time, of the latest value for each key in a stream (a stream’s data records are key-value pairs). A table is thus a stream in disguise, and it can be easily turned into a “real” stream by iterating over each key-value entry in the table.<br>
 
-<img src="https://docs.confluent.io/platform/current/_images/streams-table-duality-02.jpg" width="460" height="345">
+Let’s illustrate this with an example. Imagine a table that tracks the total number of pageviews by user (first column of diagram below). Over time, whenever a new pageview event is processed, the state of the table is updated accordingly. Here, the state changes between different points in time – and different revisions of the table – can be represented as a changelog stream (second column).<br>
+
+<img src="https://docs.confluent.io/platform/current/_images/streams-table-duality-02.jpg" width="460" height="345"> <br><br>
+
+
+Because of the stream-table duality, the same stream can be used to reconstruct the original table (third column):<br>
+
+<img src="https://docs.confluent.io/platform/current/_images/streams-table-duality-03.jpg" width="460" height="345"><br><br>
+
+The same mechanism is used, for example, to replicate databases via change data capture (CDC) and, within Kafka Streams, to replicate its so-called state stores across machines for fault tolerance. The stream-table duality is such an important concept for stream processing applications in practice that Kafka Streams models it explicitly via the KStream and KTable abstractions, which we describe in the next sections.
 
 
 
