@@ -86,7 +86,7 @@ If you read the input topic into a GlobalKTable, then the local GlobalKTable ins
 
 <b>Benefits of global tables:</b><br>
 
-<p>&#9679;</p>More convenient and/or efficient joins: Notably, global tables allow you to perform star joins, they support “foreign-key” lookups (i.e., you can lookup data in the table not just by record key, but also by data in the record values), and they are more efficient when chaining multiple joins. Also, when joining against a global table, the input data does not need to be co-partitioned.<br>
+&#9679; More convenient and/or efficient joins: Notably, global tables allow you to perform star joins, they support “foreign-key” lookups (i.e., you can lookup data in the table not just by record key, but also by data in the record values), and they are more efficient when chaining multiple joins. Also, when joining against a global table, the input data does not need to be co-partitioned.<br>
 <p>&#9679;</p>Can be used to “broadcast” information to all the running instances of your application.<br>
 
 <b>Downsides of global tables:</b><br>
