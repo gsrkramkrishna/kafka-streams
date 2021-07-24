@@ -19,7 +19,7 @@ Taking a leaf out of SQLs book, Kafka Streams supports three kinds of joins:<br>
 
 Another important aspect to consider are the input types. The following table shows which operations are permitted between KStreams and KTables:<br>
 
-<tbody>
+<table>
 <tr>
 <td style="width: 115px;"><b>Primary Type &nbsp; &nbsp;&nbsp;</b></td>
 <td style="width: 139px;"><b>Secondary Type&nbsp;</b></td>
@@ -55,7 +55,7 @@ Another important aspect to consider are the input types. The following table sh
 <td style="width: 78px;"><span style="font-weight: 400;">Supported</span></td>
 <td style="width: 96px;"><span style="font-weight: 400;">N/A</span></td>
 </tr>
-</tbody>
+</table>
 
 The <b>stream-table duality</b> describes the close relationship between streams and tables.<br>
 
