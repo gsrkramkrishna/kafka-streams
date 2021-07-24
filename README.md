@@ -32,5 +32,7 @@ Table as Stream: A table can be considered a snapshot, at a point in time, of th
 
 Let’s illustrate this with an example. Imagine a table that tracks the total number of pageviews by user (first column of diagram below). Over time, whenever a new pageview event is processed, the state of the table is updated accordingly. Here, the state changes between different points in time – and different revisions of the table – can be represented as a changelog stream (second column).
 
-https://docs.confluent.io/platform/current/_images/streams-table-duality-02.jpg
+<img src="https://docs.confluent.io/platform/current/_images/streams-table-duality-02.jpg" alt="streams-table-duality">
+
+
 
